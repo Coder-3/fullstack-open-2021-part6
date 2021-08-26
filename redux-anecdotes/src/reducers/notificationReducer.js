@@ -1,7 +1,9 @@
 const notificationReducer = (state = '', action) => {
-  switch (action) {
-    case 'NEW_ANECDOTE':
-      return `you voted for '${action.notification}'`
+  switch (action.type) {
+    case 'VOTE_NOTIFICATION':
+      return `you voted '${action.notification}'`
+    case 'REMOVE_NOTIFICATION':
+      return ''
     default:
       return state
   }
@@ -9,8 +11,14 @@ const notificationReducer = (state = '', action) => {
 
 export const notificationChange = notification => {
   return {
-    type: 'NEW_ANECDOTE',
-    notification,
+    type: 'VOTE_NOTIFICATION',
+    notification
+  }
+}
+
+export const removeNotification = () => {
+  return {
+    type: 'REMOVE_NOTIFICATION'
   }
 }
 

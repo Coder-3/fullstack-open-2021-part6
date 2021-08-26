@@ -13,7 +13,10 @@ const reducer = combineReducers({
   notification: notificationReducer
 })
 
-const store = createStore(reducer)
+const store = createStore(
+  reducer,
+  composeWithDevTools()
+)
 
 console.log('state of the store', store.getState())
 
