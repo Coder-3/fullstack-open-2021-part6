@@ -22,14 +22,18 @@ export const removeNotification = () => {
   }
 }
 
+let timerID = undefined
+
 export const setNotification = (notification, duration) => {
   return async dispatch => {
+    clearTimeout(timerID)
+
     dispatch({
       type: 'VOTE_NOTIFICATION',
       notification
     })
 
-    setTimeout(() => {
+    timerID = setTimeout(() => {
       dispatch({
         type: 'REMOVE_NOTIFICATION'
       })
