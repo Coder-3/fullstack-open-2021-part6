@@ -19,16 +19,27 @@ const anecdoteReducer = (state = [], action) => {
   }
 }
 
-export const vote = id => {
-  return {
-    type: 'VOTE',
-    data: { id }
+export const vote = anecdote => {
+  return async dispatch => {
+    const anecdoteObject = {
+      ...anecdote,
+      votes: anecdote.votes + 1
+    }
+    const votedAnecdote = await anecdoteService.voteAnecdote(anecdoteObject)
+    dispatch({
+      type: 'VOTE',
+      data: votedAnecdote
+    })
   }
 }
 
 export const createAnecdote = content => {
   return async dispatch => {
-    const newAnecdote = await anecdoteService.createNew(content)
+    const anecdoteObject = {
+      content,
+      votes: 0
+    }
+    const newAnecdote = await anecdoteService.createNew(anecdoteObject)
     dispatch({
       type: 'NEW_ANECDOTE',
       data: newAnecdote

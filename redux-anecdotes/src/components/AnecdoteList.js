@@ -20,6 +20,7 @@ const Anecdote = ({ anecdote, handleVote }) => {
 const AnecdoteList = () => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(({ filter, anecdotes }) => {
+    console.log(filter, anecdotes)
     if (filter) {
       return anecdotes.filter(anecdote => {
         if (anecdote.content.toLowerCase().includes(filter.toLowerCase())) {
@@ -37,7 +38,7 @@ const AnecdoteList = () => {
   }
 
   const handleVote = (anecdote) => {
-    dispatch(vote(anecdote.id))
+    dispatch(vote(anecdote))
     dispatch(notificationChange(anecdote.content))
     setTimeout(() => {
       dispatch(removeNotification())
